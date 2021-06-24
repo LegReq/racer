@@ -33,6 +33,12 @@ describe('path methods', function() {
       var scoped2 = scoped.scope();
       expect(scoped2.path()).equal('');
     });
+    it('supports segments as array', function() {
+      var model = new Model();
+      var pathSegments = ['foo', 'bar', 'http://baz.uri'];
+      var scoped = model.scope(pathSegments);
+      expect(scoped.path()).equal('foo.bar.http://baz.uri');
+    });
   });
   describe('at', function() {
     it('returns a child model with the relative scope', function() {
@@ -58,6 +64,12 @@ describe('path methods', function() {
       var scoped = model.at('foo', 'bar', 'baz');
       var scoped2 = scoped.at();
       expect(scoped2.path()).equal('foo.bar.baz');
+    });
+    it('supports segments as array with URI identifer', function() {
+      var model = new Model();
+      var pathSegments = ['foo', 'bar', 'http://baz.uri'];
+      var scoped = model.at(pathSegments);
+      expect(scoped.path()).equal('foo.bar.http://baz.uri');
     });
   });
 });
