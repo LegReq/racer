@@ -37,7 +37,15 @@ describe('path methods', function() {
       var model = new Model();
       var pathSegments = ['foo', 'bar', 'http://baz.uri'];
       var scoped = model.scope(pathSegments);
+      expect(model.path()).equal('');
       expect(scoped.path()).equal('foo.bar.http://baz.uri');
+    });
+    it('supports segments as array and string', function() {
+      var model = new Model();
+      var pathSegments = ['foo', 'bar', 'http://baz.uri'];
+      var scoped = model.scope(pathSegments);
+      var scoped2 = scoped.scope('colors', 4);
+      expect(scoped2.path()).equal('colors.4');
     });
   });
   describe('at', function() {
@@ -69,7 +77,15 @@ describe('path methods', function() {
       var model = new Model();
       var pathSegments = ['foo', 'bar', 'http://baz.uri'];
       var scoped = model.at(pathSegments);
+      expect(model.path()).equal('');
       expect(scoped.path()).equal('foo.bar.http://baz.uri');
+    });
+    it('supports segments as array and string', function() {
+      var model = new Model();
+      var pathSegments = ['foo', 'bar', 'http://baz.uri'];
+      var scoped = model.at(pathSegments);
+      var scoped2 = scoped.at(4);
+      expect(scoped2.path()).equal('foo.bar.http://baz.uri.4');
     });
   });
 });
